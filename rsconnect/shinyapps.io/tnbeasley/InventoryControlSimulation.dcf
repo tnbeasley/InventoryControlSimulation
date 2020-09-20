@@ -1,0 +1,12 @@
+name: InventoryControlSimulation
+title: InventoryControlSimulation
+username:
+account: tnbeasley
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 2835681
+bundleId: 3645480
+url: https://tnbeasley.shinyapps.io/InventoryControlSimulation/
+when: 1600472836.80169
+asMultiple: FALSE
+asStatic: FALSE
