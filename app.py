@@ -136,7 +136,8 @@ app.layout = html.Div([
                         value = "BegOfDay"
                     ),
                     dcc.Graph(id = "linePlot"),
-                    dcc.Graph(id = "histogram")
+                    dcc.Graph(id = "histogram"),
+                    html.Div(id = "simulationResults")
                 ])
             ]
         )
@@ -161,7 +162,8 @@ def create_histogram(df, x):
 
 
 @app.callback(
-    [Output("linePlot", "figure"),
+    [Output("simulationResults", "children"),
+     Output("linePlot", "figure"),
      Output("histogram", "figure")],
     [Input("days", "value"),
      Input("initialinventory", "value"),
@@ -200,7 +202,13 @@ def run_simulation(days, initialinventory, restockProb, restockAmt, randomSeed, 
 
     SIMULATION = pd.DataFrame(data = d)    
 
-    return(create_timeplot(SIMULATION, lineVar),
+    return(dash_table.DataTable(
+                data=SIMULATION.to_dict("rows"),
+                columns=[{'id': 'Day', 'name': 'Day'},
+                         {'id': 'BegOfDay', 'name': 'Beg. of Day'},
+                         {'id': 'EndOfDay', 'name': 'End of Day'},
+                         {'id': 'Missed', 'name': 'Missed'}]),
+           create_timeplot(SIMULATION, lineVar),
            create_histogram(SIMULATION, lineVar))
 
 
